@@ -56,7 +56,14 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	protected static class LoginConfig extends WebSecurityConfigurerAdapter {
 
 		@Autowired
-		private AuthenticationManager authenticationManager;
+		public void globalUserDetails(final AuthenticationManagerBuilder auth) throws Exception {
+			// @formatter:off
+			auth.inMemoryAuthentication().
+					withUser("john").password("123").roles("USER").
+					and().
+					withUser("tom").password("111").roles("ADMIN");
+			// @formatter:on
+		}
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
@@ -70,10 +77,6 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 			// @formatter:on
 		}
 
-		@Override
-		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-			auth.parentAuthenticationManager(authenticationManager);
-		}
 	}
 
 	@Configuration
