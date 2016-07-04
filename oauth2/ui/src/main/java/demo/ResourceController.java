@@ -29,7 +29,8 @@ public class ResourceController {
     @RequestMapping(value = "resource", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String resource() {
-        return restTemplate.getForObject(URI.create("http://localhost:9000/resource"), String.class);
+        String result = restTemplate.getForObject(URI.create("http://localhost:9999/uaa/hello"), String.class);
+        return result;
     }
 
 }

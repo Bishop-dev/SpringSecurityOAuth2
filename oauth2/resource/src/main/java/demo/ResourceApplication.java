@@ -1,5 +1,6 @@
 package demo;
 
+import java.security.Principal;
 import java.util.UUID;
 
 import org.springframework.boot.SpringApplication;
@@ -14,8 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class ResourceApplication {
 
 	@RequestMapping("/")
-	public Message home() {
+	public Message home(Principal principal) {
 		return new Message("Hello World");
+	}
+
+	@RequestMapping("/index")
+	public Message index() {
+		return new Message("index00");
 	}
 
 	public static void main(String[] args) {

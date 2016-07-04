@@ -2,6 +2,7 @@ package demo;
 
 import java.security.KeyPair;
 import java.security.Principal;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -39,6 +40,12 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 	@ResponseBody
 	public Principal user(Principal user) {
 		return user;
+	}
+
+	@RequestMapping("/hello")
+	@ResponseBody
+	public Message home(Principal principal) {
+		return new Message("Hello World form AUTH!!!");
 	}
 
 	@Override
@@ -120,5 +127,25 @@ public class AuthserverApplication extends WebMvcConfigurerAdapter {
 					"isAuthenticated()");
 		}
 
+	}
+
+	protected static class Message {
+		private String id = UUID.randomUUID().toString();
+		private String content;
+
+		Message() {
+		}
+
+		public Message(String content) {
+			this.content = content;
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		public String getContent() {
+			return content;
+		}
 	}
 }
